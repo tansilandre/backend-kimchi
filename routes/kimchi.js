@@ -4,6 +4,7 @@ var router = express.Router();
 var request = require('request');
 
 /* GET users listing. */
+console.log("mskgan")
 router.get('/', function(req, res, next) {
   request(
     { url: 'https://api.gopax.co.kr/trading-pairs/XRP-KRW/ticker' },
