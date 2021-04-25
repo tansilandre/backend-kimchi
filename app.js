@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/kimchi', kimchiRouter);
+app.use('/api/kimchi', kimchiRouter);
 app.use(cors());
 
 // catch 404 and forward to error handler
@@ -34,6 +34,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+  res.header('Access-Control-Allow-Origin', '*');
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
