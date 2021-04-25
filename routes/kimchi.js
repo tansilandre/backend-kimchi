@@ -41,7 +41,7 @@ router.get("/", async function (req, res, next) {
     return kimchi
   }
 
-
+  setTimeout(function(){ 
   request(
     { url: "https://api.gopax.co.kr/trading-pairs/" + coinUpper + "-KRW/ticker" },
     (err, response, body) => {
@@ -49,7 +49,7 @@ router.get("/", async function (req, res, next) {
         return "ERROR";
       }
       prices["gopax"] = JSON.parse(response.body).ask;
-      setTimeout(function(){ 
+      
         request(
           { url: 'https://indodax.com/api/ticker/'+coinLower+'idr' },
           (err, response, body) => {
@@ -64,10 +64,11 @@ router.get("/", async function (req, res, next) {
           }
         )
 
-       }, 200);
       
     }
   );
+  
+}, 200);
 });
 
 module.exports = router;
