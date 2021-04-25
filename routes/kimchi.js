@@ -48,7 +48,7 @@ router.get("/", async function (req, res, next) {
       if (err || response.statusCode !== 200) {
         return "ERROR";
       }
-      prices["gopax"] = JSON.parse(response.body).ask;
+      prices.gopax = JSON.parse(response.body).ask;
       
         request(
           { url: 'https://indodax.com/api/ticker/'+coinLower+'idr' },
