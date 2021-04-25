@@ -49,19 +49,23 @@ router.get("/", async function (req, res, next) {
         return "ERROR";
       }
       prices["gopax"] = JSON.parse(response.body).ask;
-
-      request(
-        { url: 'https://indodax.com/api/ticker/'+coinLower+'idr' },
-        (err, response, body) => {
-          if (err || response.statusCode !== 200) {
-            return "ERROR";
+      setTimeout(function(){ 
+        request(
+          { url: 'https://indodax.com/api/ticker/'+coinLower+'idr' },
+          (err, response, body) => {
+            if (err || response.statusCode !== 200) {
+              return "ERROR";
+            }
+            prices.indodax = parseInt(JSON.parse(response.body).ticker.sell)
+            let kimchi = calculateKimchi(12.75 , 1, prices.indodax,prices.gopax)
+            result = {coinUpper,prices,kimchi}
+  
+            res.json(result)
           }
-          prices.indodax = parseInt(JSON.parse(response.body).ticker.sell)
-          let kimchi = calculateKimchi(12.75 , 1, prices.indodax,prices.gopax)
-          result = {coinUpper,prices,kimchi}
-          res.json(result)
-        }
-      )
+        )
+
+       }, 200);
+      
     }
   );
 });
