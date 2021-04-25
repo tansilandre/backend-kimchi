@@ -6,14 +6,14 @@ var request = require('request');
 /* GET users listing. */
 console.log("mskgan")
 router.get('/', function(req, res, next) {
+  let coin = req.query.coin.toUpperCase()
+  console.log(coin)
   request(
-    { url: 'https://api.gopax.co.kr/trading-pairs/XRP-KRW/ticker' },
-    (error, response, body) => {
-      if (error || response.statusCode !== 200) {
-        return res.status(500).json({ type: 'error', message: err.message });
+    { url: 'https://api.gopax.co.kr/trading-pairs/'+coin+'-KRW/ticker' },
+    (err, response, body) => {
+      if (err || response.statusCode !== 200) {
+        return res.status(500).json({ type: 'error', message: err });
       }
-      console.log(response)
-      console.log(body)
       res.json(JSON.parse(body));
     }
   )
